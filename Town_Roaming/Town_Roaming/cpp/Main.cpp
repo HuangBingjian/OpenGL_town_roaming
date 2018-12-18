@@ -1,13 +1,13 @@
 // *************************************************************
-// Ö÷º¯ÊıÄÚÈİ¶à£¬ÊÇÒòÎªÓĞĞ©¹¦ÄÜÈçÒôÀÖ£¨ºóÆÚ¼ÓÉÏ£©Ã»ÓĞ·â×°£¬
-// ËùÒÔÏÔµÃ·±Èß£¬µ«ÊÇ¿´Ó¦¸Ã»¹ÄÜ¿´µÃ¶®°É¡£¡£¡£
-// ËãÊÇÃæÏò¹ı³Ì¶ø·ÇÃæÏò¶ÔÏó£¬ÀÁµÃÈ¥ĞŞ¸ÄÁË£¬×ÔĞĞ¸Ä½ø¡£
-// ×÷ÎªÃÖ²¹£¬ÎÒ°Ñ¸÷¸ö¹ı³Ì·Ö¿é£¬¸½ÉÏ×¢ÊÍ£¬²»¶®ÔÙÎÊ
+// ä¸»å‡½æ•°å†…å®¹å¤šï¼Œæ˜¯å› ä¸ºæœ‰äº›åŠŸèƒ½å¦‚éŸ³ä¹ï¼ˆåæœŸåŠ ä¸Šï¼‰æ²¡æœ‰å°è£…ï¼Œ
+// æ‰€ä»¥æ˜¾å¾—ç¹å†—ï¼Œä½†æ˜¯çœ‹åº”è¯¥è¿˜èƒ½çœ‹å¾—æ‡‚å§ã€‚ã€‚ã€‚
+// ç®—æ˜¯é¢å‘è¿‡ç¨‹è€Œéé¢å‘å¯¹è±¡ï¼Œæ‡’å¾—å»ä¿®æ”¹äº†ï¼Œè‡ªè¡Œæ”¹è¿›ã€‚
+// ä½œä¸ºå¼¥è¡¥ï¼Œæˆ‘æŠŠå„ä¸ªè¿‡ç¨‹åˆ†å—ï¼Œé™„ä¸Šæ³¨é‡Šï¼Œä¸æ‡‚å†é—®
 // *************************************************************
 
 
 // **********************************************************************************************************************
-// Í·ÎÄ¼ş
+// å¤´æ–‡ä»¶
 #include "..\header\stdafx.h"		
 #include "..\header\CMDLOBJ.h"
 #include "..\header\Camera.h"		
@@ -34,122 +34,121 @@
 #include <GL\glext.h>
 #include <string>
 #include <stdlib.h>
-// windowsÖĞÓë¶àÃ½ÌåÓĞ¹ØµÄ´ó¶àÊı½Ó¿Ú£¨ÓÃÓÚÒôÀÖ£©
+// windowsä¸­ä¸å¤šåª’ä½“æœ‰å…³çš„å¤§å¤šæ•°æ¥å£ï¼ˆç”¨äºéŸ³ä¹ï¼‰
 #include <mmsystem.h>
 #pragma comment( lib, "winmm.lib")
 // **********************************************************************************************************************
 
 
 // **********************************************************************************************************************
-// ³õÊ¼»¯
-HDC			hDC=NULL;		// Private GDI Device Context	 OpenGLäÖÈ¾Éè±¸ÃèÊö±í¾ä±ú
-HGLRC		hRC=NULL;		// Permanent Rendering Context ´°¿Ú×ÅÉ«ÃèÊö±í¾ä±ú
-HWND		hWnd=NULL;		// Holds Our Window Handle	±£´æÎÒÃÇµÄ´°¿Ú¾ä±ú
-HINSTANCE	hInstance;		// Holds The Instance Of The Application	±£´æ³ÌĞòµÄÊµÀı
+// åˆå§‹åŒ–
+HDC			hDC=NULL;		// Private GDI Device Context	 OpenGLæ¸²æŸ“è®¾å¤‡æè¿°è¡¨å¥æŸ„
+HGLRC		hRC=NULL;		// Permanent Rendering Context çª—å£ç€è‰²æè¿°è¡¨å¥æŸ„
+HWND		hWnd=NULL;		// Holds Our Window Handle	ä¿å­˜æˆ‘ä»¬çš„çª—å£å¥æŸ„
+HINSTANCE	hInstance;		// Holds The Instance Of The Application	ä¿å­˜ç¨‹åºçš„å®ä¾‹
 
-bool	keys[256];			// Array Used For The Keyboard Routine	¼üÅÌÊı×é£¬¿É´¦Àí°´¼ü³åÍ»
-bool	isKeys[256];		//¼üÅÌÊÇ·ñ°´×¡,Ò»°ãÓÃÓÚÇĞ»»¹¦ÄÜ
-bool	active=TRUE;		// Window Active Flag Set To TRUE By Default	´°¿ÚÊÇ·ñ¼¤»î
-bool	fullscreen=TRUE;	// Fullscreen Flag Set To Fullscreen Mode By Default	ÊÇ·ñÈ«ÆÁ
+bool	keys[256];			// Array Used For The Keyboard Routine	é”®ç›˜æ•°ç»„ï¼Œå¯å¤„ç†æŒ‰é”®å†²çª
+bool	isKeys[256];		//é”®ç›˜æ˜¯å¦æŒ‰ä½,ä¸€èˆ¬ç”¨äºåˆ‡æ¢åŠŸèƒ½
+bool	active=TRUE;		// Window Active Flag Set To TRUE By Default	çª—å£æ˜¯å¦æ¿€æ´»
+bool	fullscreen=TRUE;	// Fullscreen Flag Set To Fullscreen Mode By Default	æ˜¯å¦å…¨å±
 bool	focus = true;
-char *manual="    ÒÆ¶¯:\t\t\t    ËÙ¶È:\n"
-			 "\tW ¡ü \tÏòÇ°\t\tQ    \t¼ÓËÙ\n\tS  ¡ı\tÏòºó\t\tE   \t¼õËÙ\n"
-			 "\tA ¡û \tÏò×ó\t\tShift\tÅÜ²½\n\tD ¡ú \tÏòÓÒ\t\tEnter   \t¿ª³µ\n\n"
-			 "    ÖçÒ¹:\t\t\t    ÌìÆø:\n"
-			 "\t1    \t°×Ìì    \t\t4    \tÒõÌì\n\t2    \t»Æ»è    \t\t5   \tÎíÌì\n"
-			 "\t3    \tÒ¹Íí    \t\t6    \tÏÂÑ©\n\n"
-			 "    ¹¦ÄÜ:\t\t\t    ÊÓÒ°:\n"
-			 "\tB    \t»Ø³Ç    \t\tPgUp \tÉÏÉı\n\tP    \tÔİÍ£    \t\tPgDn\tÏÂ½µ\n"
-			 "\tL\t½ÖµÆ    \t\tÊó±ê×ó¼ü\tÄæÊ±Õë\n\tM\tÒôÀÖ    \t\tÊó±êÓÒ¼ü\tË³Ê±Õë\n"
-			 "\tR\tÑÌ»¨\n\n"
-			 "    ĞÅÏ¢:\t\t\t    ÌáÊ¾:\n"
-			 "\tH    \t°ïÖú    \t\t¹ÛÉÍÑÌ»¨\t°×ÌìÒ¹Íí\n\tT\t¹Ç÷À    \t\t³õ´ÎÑ°³µ\tÍ¼Êé¹İºó\n"
-			 "\tI\t°æ±¾\n\tEsc\tÍË³ö\n"; 
-char *information = "\n\t±ÏÉèÌâÄ¿:\t\t»ùÓÚOpenGLµÄĞéÄâ³¡¾°¹¹½¨\n\t\t\t\t    Ö®\n\t\t\t             ³ÇÕòÂşÓÎ\n\n"
-					"\t×÷Õß:\t\t              »Æ±ş¼á\n\n\n"
-					"\tÖ¸µ¼ÀÏÊ¦:\t\t             Áõ×ÚÏãÀÏÊ¦\n\n\n"
-					"\t\t\t\t\tÉîÛÚ´óÑ§ĞÅÏ¢¹¤³ÌÑ§Ôº\n\t\t\t\t\t\t2017";
+char *manual="    ç§»åŠ¨:\t\t\t    é€Ÿåº¦:\n"
+			 "\tW â†‘ \tå‘å‰\t\tQ    \tåŠ é€Ÿ\n\tS  â†“\tå‘å\t\tE   \tå‡é€Ÿ\n"
+			 "\tA â† \tå‘å·¦\t\tShift\tè·‘æ­¥\n\tD â†’ \tå‘å³\t\tEnter   \tå¼€è½¦\n\n"
+			 "    æ˜¼å¤œ:\t\t\t    å¤©æ°”:\n"
+			 "\t1    \tç™½å¤©    \t\t4    \té˜´å¤©\n\t2    \té»„æ˜    \t\t5   \té›¾å¤©\n"
+			 "\t3    \tå¤œæ™š    \t\t6    \tä¸‹é›ª\n\n"
+			 "    åŠŸèƒ½:\t\t\t    è§†é‡:\n"
+			 "\tB    \tå›åŸ    \t\tPgUp \tä¸Šå‡\n\tP    \tæš‚åœ    \t\tPgDn\tä¸‹é™\n"
+			 "\tL\tè¡—ç¯    \t\té¼ æ ‡å·¦é”®\té€†æ—¶é’ˆ\n\tM\téŸ³ä¹    \t\té¼ æ ‡å³é”®\té¡ºæ—¶é’ˆ\n"
+			 "\tR\tçƒŸèŠ±\n\n"
+			 "    ä¿¡æ¯:\t\t\t    æç¤º:\n"
+			 "\tH    \tå¸®åŠ©    \t\tè§‚èµçƒŸèŠ±\tç™½å¤©å¤œæ™š\n\tT\téª¨éª¼    \t\tåˆæ¬¡å¯»è½¦\tå›¾ä¹¦é¦†å\n"
+			 "\tI\tç‰ˆæœ¬\n\tEsc\té€€å‡º\n"; 
+char *information = "\n\tæ¯•è®¾é¢˜ç›®:\t\tåŸºäºOpenGLçš„è™šæ‹Ÿåœºæ™¯æ„å»º\n\t\t\t\t    ä¹‹\n\t\t\t             åŸé•‡æ¼«æ¸¸\n\n"
+					"\tä½œè€…:\t\t              é»„ç‚³åš\n\n\n"
+					"\t\t\t\t\tæ·±åœ³å¤§å­¦ä¿¡æ¯å·¥ç¨‹å­¦é™¢\n\t\t\t\t\t\t2017";
 
-//int		LBDown; //Êó±ê×ó¼ü
-float   m_Fps;      // Ö¡ËÙ 
-GLFont  m_Font;		//×ÖÌå
-Camera  m_Camera ;	//ÉãÏñ»úÀà
-CSkyBox m_SkyBox;	//Ìì¿ÕºĞ
-CGround m_Ground;	//µØ°å
-GL_Flag     m_Flag;//Æì×Ó
-CLoad3DS g_Load3ds;		//3DSÔØÈëÀà								
-Static3DS m_Static3DS ;		//¾²Ì¬¾°Îï
-CMDLOBJ m_MDLOBJ;	//¹Ç÷À¶¯»­
-Snow m_snow;//ÏÂÑ©¶¯»­
+//int		LBDown; //é¼ æ ‡å·¦é”®
+float   m_Fps;      // å¸§é€Ÿ 
+GLFont  m_Font;		//å­—ä½“
+Camera  m_Camera ;	//æ‘„åƒæœºç±»
+CSkyBox m_SkyBox;	//å¤©ç©ºç›’
+CGround m_Ground;	//åœ°æ¿
+GL_Flag     m_Flag;//æ——å­
+CLoad3DS g_Load3ds;		//3DSè½½å…¥ç±»								
+Static3DS m_Static3DS ;		//é™æ€æ™¯ç‰©
+CMDLOBJ m_MDLOBJ;	//éª¨éª¼åŠ¨ç”»
+Snow m_snow;//ä¸‹é›ªåŠ¨ç”»
 bool is_snow=0;
-bool	m_RenderMode = false;	//»æÖÆÄ£Ê½ Ìî³ä»¹ÊÇÏßÌõ
+bool	m_RenderMode = false;	//ç»˜åˆ¶æ¨¡å¼ å¡«å……è¿˜æ˜¯çº¿æ¡
 float man_x, man_z,man_degree=0;
-int man_action=0;//ÈËÎï¶¯×÷
-int man_turn = 0;//ÈËÎï×ªÏò
+int man_action=0;//äººç‰©åŠ¨ä½œ
+int man_turn = 0;//äººç‰©è½¬å‘
 int car_stop = 0;
 Vector3 jeep_pos;
 Vector3 camera_pos;
 float camera_angle = 0;
-float camera_rad = float(3.13149f * camera_angle / 180.0f);//ÒÆ¶¯³µµÄÊÓ½Ç
-bool jeep_first = 0;//µÚÒ»´ÎÉÏ³µ
-bool man_move=1;//ÈËÎïÊÇ·ñÒÆ¶¯
-bool is_music = 0;//0Ê±ÓĞÉùÒô
-bool is_meet = 0;//ÊÇ·ñÓöµ½
-bool is_drive = 0;//ÈËµÄÊÓ½Ç»¹ÊÇ³µµÄÊÓ½Ç
-float	jeep_angle = 90;//³µµÄ½Ç¶È
+float camera_rad = float(3.13149f * camera_angle / 180.0f);//ç§»åŠ¨è½¦çš„è§†è§’
+bool jeep_first = 0;//ç¬¬ä¸€æ¬¡ä¸Šè½¦
+bool man_move=1;//äººç‰©æ˜¯å¦ç§»åŠ¨
+bool is_music = 0;//0æ—¶æœ‰å£°éŸ³
+bool is_meet = 0;//æ˜¯å¦é‡åˆ°
+bool is_drive = 0;//äººçš„è§†è§’è¿˜æ˜¯è½¦çš„è§†è§’
+float	jeep_angle = 90;//è½¦çš„è§’åº¦
 int is_night = 0;
 float speed_camera = 0.2f;
 
-GLfloat LightAmbient[] = { 0.0f, 0.0f, 0.0f, 1.0f };		//»·¾³¹âµÄÖµRGBA
-GLfloat LightDiffuse[] = { 0.2f, 0.2f, 0.2f, 0.2f };		//É¢Éä¹âµÄÖµ
-GLfloat LightPosition[] = { 1000.0f, 50.0f, -2.0f, 1.0f };	//¹âÕÕÎ»ÖÃXYZA
+GLfloat LightAmbient[] = { 0.0f, 0.0f, 0.0f, 1.0f };		//ç¯å¢ƒå…‰çš„å€¼RGBA
+GLfloat LightDiffuse[] = { 0.2f, 0.2f, 0.2f, 0.2f };		//æ•£å°„å…‰çš„å€¼
+GLfloat LightPosition[] = { 1000.0f, 50.0f, -2.0f, 1.0f };	//å…‰ç…§ä½ç½®XYZA
 
-GLuint fogMode[] = { GL_EXP, GL_EXP2, GL_LINEAR };  // ÎíÆøµÄÄ£Ê½
-GLuint fogfilter = 0;     // Ê¹ÓÃÄÄÒ»ÖÖÎíÆø
-GLfloat fogColor[4] = { 0.5f, 0.5f, 0.5f, 1.0f };  // ÎíµÄÑÕÉ«ÉèÎª°×É«
-// ¶¨Ê±Æ÷»Øµ÷º¯Êı  
+GLuint fogMode[] = { GL_EXP, GL_EXP2, GL_LINEAR };  // é›¾æ°”çš„æ¨¡å¼
+GLuint fogfilter = 0;     // ä½¿ç”¨å“ªä¸€ç§é›¾æ°”
+GLfloat fogColor[4] = { 0.5f, 0.5f, 0.5f, 1.0f };  // é›¾çš„é¢œè‰²è®¾ä¸ºç™½è‰²
+// å®šæ—¶å™¨å›è°ƒå‡½æ•°  
 void CALLBACK TimeProc(HWND hwnd, UINT message, UINT idTimer, DWORD dwTime);
 
 // **********************************************************************************************************************
 
 
 // **********************************************************************************************************************
-/** ¼ÆËãÖ¡ËÙ */
+/** è®¡ç®—å¸§é€Ÿ */
 void CaculateFrameRate()
 {
-	static float framesPerSecond = 0.0f;	     /**< ±£´æÏÔÊ¾Ö¡Êı */
-	static float lastTime = 0.0f;	             /**< ¼ÇÂ¼ÉÏ´ÎÊ±¼ä */
-	float currentTime = GetTickCount() * 0.001f; /**< »ñµÃµ±Ç°Ê±¼ä */
-	framesPerSecond++;                           /**< ÏÔÊ¾Ö¡ÊıµİÔö1 */
-	if (currentTime - lastTime > 1.0f)           /** Èç¹ûÊ±¼ä²î´óÓÚ1.0Ãë */
+	static float framesPerSecond = 0.0f;	     /**< ä¿å­˜æ˜¾ç¤ºå¸§æ•° */
+	static float lastTime = 0.0f;	             /**< è®°å½•ä¸Šæ¬¡æ—¶é—´ */
+	float currentTime = GetTickCount() * 0.001f; /**< è·å¾—å½“å‰æ—¶é—´ */
+	framesPerSecond++;                           /**< æ˜¾ç¤ºå¸§æ•°é€’å¢1 */
+	if (currentTime - lastTime > 1.0f)           /** å¦‚æœæ—¶é—´å·®å¤§äº1.0ç§’ */
 	{
-		lastTime = currentTime;                  /**< ±£´æµ±Ç°Ê±¼ä */
-		m_Fps = framesPerSecond;                 /**< µ±Ç°Ö¡Êı´«¸øm_Fps */
-		framesPerSecond = 0;                     /**< ½«Ö¡ÊıÖÃÁã */
+		lastTime = currentTime;                  /**< ä¿å­˜å½“å‰æ—¶é—´ */
+		m_Fps = framesPerSecond;                 /**< å½“å‰å¸§æ•°ä¼ ç»™m_Fps */
+		framesPerSecond = 0;                     /**< å°†å¸§æ•°ç½®é›¶ */
 	}
 }
 // **********************************************************************************************************************
 
 // **********************************************************************************************************************
-// Êä³öÆÁÄ»ÎÄ×Ö
+// è¾“å‡ºå±å¹•æ–‡å­—
 void PrintCurrentText()			
 {
-	char string[128];                               /**< ÓÃÓÚ±£´æÊä³ö×Ö·û´® */
-	glPushAttrib(GL_CURRENT_BIT);                   /**< ±£´æÏÖÓĞÑÕÉ«ÊôĞÔĞÅÏ¢ */
+	char string[128];                               /**< ç”¨äºä¿å­˜è¾“å‡ºå­—ç¬¦ä¸² */
+	glPushAttrib(GL_CURRENT_BIT);                   /**< ä¿å­˜ç°æœ‰é¢œè‰²å±æ€§ä¿¡æ¯ */
 	int x, z;
 	float car_pos = -1000;//7,1,8,2     9,3,10,4     11,5,12,6
 	
-	if (man_move == 1)//¼ò»¯£¬ÎŞĞèÊµÊ±¼à²â
+	if (man_move == 1)//ç®€åŒ–ï¼Œæ— éœ€å®æ—¶ç›‘æµ‹
 	{
-		CaculateFrameRate();                          /**< ¼ÆËãÖ¡ËÙ */
+		CaculateFrameRate();                          /**< è®¡ç®—å¸§é€Ÿ */
 		glColor3f(0.0f, 1.0f, 1.0f);
-		sprintf(string, "FPS:%d", (int)m_Fps);        /**< ×Ö·û´®¸³Öµ */
+		sprintf(string, "FPS:%d", (int)m_Fps);        /**< å­—ç¬¦ä¸²èµ‹å€¼ */
 		m_Font.PrintText(string, -5.0f, 2.0f);
 
-		glColor3f(0.0f, 1.0f, 1.0f);                      /**< ÉèÖÃÎÄ×ÖÑÕÉ« */
+		glColor3f(0.0f, 1.0f, 1.0f);                      /**< è®¾ç½®æ–‡å­—é¢œè‰² */
 		if (man_turn == 0)
 		{
-			sprintf(string, "ÊÓ½Ç×ø±ê:X=%3.1f Y=%3.1f Z =%3.1f ",
+			sprintf(string, "è§†è§’åæ ‡:X=%3.1f Y=%3.1f Z =%3.1f ",
 				m_Camera.getPosition().x - 1000, m_Camera.getPosition().y, -800 - m_Camera.getPosition().z); 
 			m_Font.PrintText(string, -5.0f, 3.0f);
 			x = man_x;
@@ -157,7 +156,7 @@ void PrintCurrentText()
 		}
 		else if (man_turn == 1)
 		{
-			sprintf(string, "ÊÓ½Ç×ø±ê:X=%3.1f Y=%3.1f Z =%3.1f ",
+			sprintf(string, "è§†è§’åæ ‡:X=%3.1f Y=%3.1f Z =%3.1f ",
 				m_Camera.getPosition().x - 1000 -10.0f, m_Camera.getPosition().y, -800 - m_Camera.getPosition().z-10.0f); 
 			m_Font.PrintText(string, -5.0f, 3.0f);
 			x = man_x - 10.0f;
@@ -165,7 +164,7 @@ void PrintCurrentText()
 		}
 		else if (man_turn == 2)
 		{
-			sprintf(string, "ÊÓ½Ç×ø±ê:X=%3.1f Y=%3.1f Z =%3.1f ",
+			sprintf(string, "è§†è§’åæ ‡:X=%3.1f Y=%3.1f Z =%3.1f ",
 				m_Camera.getPosition().x - 1000, m_Camera.getPosition().y, -800 - m_Camera.getPosition().z-20.0f);
 			m_Font.PrintText(string, -5.0f, 3.0f);
 			x = man_x ;
@@ -173,7 +172,7 @@ void PrintCurrentText()
 		}
 		else if (man_turn == 3)
 		{
-				sprintf(string, "ÊÓ½Ç×ø±ê:X=%3.1f Y=%3.1f Z =%3.1f ",
+				sprintf(string, "è§†è§’åæ ‡:X=%3.1f Y=%3.1f Z =%3.1f ",
 					m_Camera.getPosition().x - 1000 + 10.0f, m_Camera.getPosition().y, -800 - m_Camera.getPosition().z-10.0f); 
 
 			m_Font.PrintText(string, -5.0f, 3.0f);
@@ -183,53 +182,53 @@ void PrintCurrentText()
 
 		if (x >= 990 && x <= 1010 && z <= -805 && z >= -825)
 		{
-			sprintf(string, "µ±Ç°Î»ÖÃ:\t³ÇÕòÈë¿Ú");
+			sprintf(string, "å½“å‰ä½ç½®:\tåŸé•‡å…¥å£");
 			m_Font.PrintText(string, -5.0f, 3.5f);
-			sprintf(string, "µ±Ç°ËÙ¶È:%3.2f   µã»÷H¼ü»ñÈ¡²Ù×÷·½·¨", m_Camera.getSpeed());
+			sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f   ç‚¹å‡»Hé”®è·å–æ“ä½œæ–¹æ³•", m_Camera.getSpeed());
 			m_Font.PrintText(string, -5.0f, 2.5f);
 		}
 		else if (x >= 950 && x <= 990)
 		{
 			if (z <= -600 && z >= -850)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t³ÇÕò×ó²à ");
+				sprintf(string, "å½“å‰ä½ç½®:\tåŸé•‡å·¦ä¾§ ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -850 && z >= -980)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tÅ·ÃÀ·çÇé½ÖµÀ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tæ¬§ç¾é£æƒ…è¡—é“ ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -1000 && z >= -1140)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t°ì¹«Â¥ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tåŠå…¬æ¥¼ ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -1160 && z >= -1400)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t¾ÓÃñÂ¥ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tå±…æ°‘æ¥¼ ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if ((z <= -980 && z >= -1000) || (z <= -1140 && z >= -1160))
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t¹«Â·ÉÏ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tå…¬è·¯ä¸Š ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tÉ³Ì² ");
+				sprintf(string, "å½“å‰ä½ç½®:\tæ²™æ»© ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 		}
@@ -237,44 +236,44 @@ void PrintCurrentText()
 		{
 			if (z <= -600 && z >= -850)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t³ÇÕòÓÒ²à ");
+				sprintf(string, "å½“å‰ä½ç½®:\tåŸé•‡å³ä¾§ ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -850 && z >= -980)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tÅ·ÃÀ·çÇé½ÖµÀ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tæ¬§ç¾é£æƒ…è¡—é“ ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -1000 && z >= -1140)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t°ì¹«Â¥ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tåŠå…¬æ¥¼ ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -1160 && z >= -1400)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t¾ÓÃñÂ¥ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tå±…æ°‘æ¥¼ ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if ((z <= -980 && z >= -1000) || (z <= -1140 && z >= -1160))
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t¹«Â·ÉÏ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tå…¬è·¯ä¸Š ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tÉ³Ì² ");
+				sprintf(string, "å½“å‰ä½ç½®:\tæ²™æ»© ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 		}
@@ -282,44 +281,44 @@ void PrintCurrentText()
 		{
 			if (z <= -600 && z >= -980)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t×ÔÈ»¹«Ô° ");
+				sprintf(string, "å½“å‰ä½ç½®:\tè‡ªç„¶å…¬å›­ ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -1000 && z >= -1080)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tÒøĞĞ");
+				sprintf(string, "å½“å‰ä½ç½®:\té“¶è¡Œ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -1080 && z >= -1140)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tÒ½Ôº");
+				sprintf(string, "å½“å‰ä½ç½®:\tåŒ»é™¢");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -1160 && z >= -1400)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t¸ß¼¶¾Æµê ");
+				sprintf(string, "å½“å‰ä½ç½®:\té«˜çº§é…’åº— ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if ((z <= -980 && z >= -1000) || (z <= -1140 && z >= -1160))
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t¹«Â·ÉÏ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tå…¬è·¯ä¸Š ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tÉ³Ì² ");
+				sprintf(string, "å½“å‰ä½ç½®:\tæ²™æ»© ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 		}
@@ -327,44 +326,44 @@ void PrintCurrentText()
 		{
 			if (z <= -600 && z >= -980)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tÔË¶¯³¡");
+				sprintf(string, "å½“å‰ä½ç½®:\tè¿åŠ¨åœº");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -1000 && z >= -1080)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tÍ¼Êé¹İ");
+				sprintf(string, "å½“å‰ä½ç½®:\tå›¾ä¹¦é¦†");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -1080 && z >= -1140)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t´ó³¬ÊĞ");
+				sprintf(string, "å½“å‰ä½ç½®:\tå¤§è¶…å¸‚");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if (z <= -1160 && z >= -1400)
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tĞ¡Çø×¡Õ¬ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tå°åŒºä½å®… ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else if ((z <= -980 && z >= -1000) || (z <= -1140 && z >= -1160))
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\t¹«Â·ÉÏ ");
+				sprintf(string, "å½“å‰ä½ç½®:\tå…¬è·¯ä¸Š ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 			else
 			{
-				sprintf(string, "µ±Ç°Î»ÖÃ:\tÉ³Ì² ");
+				sprintf(string, "å½“å‰ä½ç½®:\tæ²™æ»© ");
 				m_Font.PrintText(string, -5.0f, 3.5f);
-				sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+				sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 				m_Font.PrintText(string, -5.0f, 2.5f);
 			}
 		}
@@ -372,16 +371,16 @@ void PrintCurrentText()
 			(x >= 1050 && x <= 1070 && z <= -600 && z >= -1400) || (x >= 600 && x <= 1400 && z <= -980 && z >= -1000) ||
 			(x >= 600 && x <= 1400 && z <= -1140 && z >= -1160))
 		{
-			sprintf(string, "µ±Ç°Î»ÖÃ:\t¹«Â·ÉÏ ");
+			sprintf(string, "å½“å‰ä½ç½®:\tå…¬è·¯ä¸Š ");
 			m_Font.PrintText(string, -5.0f, 3.5f);
-			sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+			sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 			m_Font.PrintText(string, -5.0f, 2.5f);
 		}
 		else
 		{
-			sprintf(string, "µ±Ç°Î»ÖÃ:\tÉ³Ì² ");
+			sprintf(string, "å½“å‰ä½ç½®:\tæ²™æ»© ");
 			m_Font.PrintText(string, -5.0f, 3.5f);
-			sprintf(string, "µ±Ç°ËÙ¶È:%3.2f", m_Camera.getSpeed());
+			sprintf(string, "å½“å‰é€Ÿåº¦:%3.2f", m_Camera.getSpeed());
 			m_Font.PrintText(string, -5.0f, 2.5f);
 		}
 		man_move = 0;
@@ -390,7 +389,7 @@ void PrintCurrentText()
 	
 
 // **********************************************************************************************************************
-// ÃùµÑÉù£ºÂ·ÉÏ¿ª×ÅµÄ³µÓöµ½ÈËºó»áÃùµÑ²¢ÇÒÍ£ÏÂ
+// é¸£ç¬›å£°ï¼šè·¯ä¸Šå¼€ç€çš„è½¦é‡åˆ°äººåä¼šé¸£ç¬›å¹¶ä¸”åœä¸‹
 	if (is_music == 0)
 	{
 		if (x >= 931 && x < 935)
@@ -603,14 +602,14 @@ void PrintCurrentText()
 
 // **********************************************************************************************************************
 LRESULT	CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);	// Declaration For WndProc
-/** ¸üĞÂÉãÏñ»ú */
+/** æ›´æ–°æ‘„åƒæœº */
 void UpdateCamera()
 {
 	if(is_drive == 0)
 		m_Camera.setViewByMouse();
 
-	/** ¼üÅÌ°´¼üÏìÓ¦ */
-	if(keys[VK_SHIFT])                        /**< °´ÏÂSHIFT¼üÊ±¼ÓËÙ */
+	/** é”®ç›˜æŒ‰é”®å“åº” */
+	if(keys[VK_SHIFT])                        /**< æŒ‰ä¸‹SHIFTé”®æ—¶åŠ é€Ÿ */
 	{
 		if (is_drive == 0)	m_Camera.setSpeed(0.5f);
 	}
@@ -618,7 +617,7 @@ void UpdateCamera()
 	{
 		m_Camera.setSpeed(speed_camera);
 	}
-	if (keys['Q'])                        /**< °´ÏÂQ¼üÊ±¼ÓËÙ */
+	if (keys['Q'])                        /**< æŒ‰ä¸‹Qé”®æ—¶åŠ é€Ÿ */
 	{
 		speed_camera = m_Camera.getSpeed();
 		if (speed_camera < 0.49f)
@@ -627,7 +626,7 @@ void UpdateCamera()
 			m_Camera.setSpeed(speed_camera);
 		}
 	}
-	if (keys['E'])                        /**< °´ÏÂE¼üÊ±¼õËÙ */
+	if (keys['E'])                        /**< æŒ‰ä¸‹Eé”®æ—¶å‡é€Ÿ */
 	{
 		speed_camera = m_Camera.getSpeed();
 		if (speed_camera > 0.10)
@@ -636,27 +635,27 @@ void UpdateCamera()
 			m_Camera.setSpeed(speed_camera);
 		}
 	}
-	if (keys['H'] && !isKeys['H'])                        /**< °´ÏÂH¼üÊ± */
+	if (keys['H'] && !isKeys['H'])                        /**< æŒ‰ä¸‹Hé”®æ—¶ */
 	{
 		isKeys['H'] = true;
-		MessageBox(NULL, manual	, "²Ù×÷ÊÖ²á", MB_OK); 
+		MessageBox(NULL, manual	, "æ“ä½œæ‰‹å†Œ", MB_OK); 
 	}
 	if (!keys['H'])
 	{
 		isKeys['H'] = false;
 	}
-	if (keys['I'] && !isKeys['I'])                        /**< °´ÏÂI¼üÊ± */
+	if (keys['I'] && !isKeys['I'])                        /**< æŒ‰ä¸‹Ié”®æ—¶ */
 	{
 		isKeys['I'] = true;
-		MessageBox(NULL,information, "°æ±¾ĞÅÏ¢",MB_OK);
+		MessageBox(NULL,information, "ç‰ˆæœ¬ä¿¡æ¯",MB_OK);
 	}
-	if (!keys['I'])                        /**< °´ÏÂI¼üÊ± */
+	if (!keys['I'])                        /**< æŒ‰ä¸‹Ié”®æ—¶ */
 	{
 		isKeys['I'] = false;
 	}
-	if (keys[VK_UP]  || keys['W'] )   /**< ÏòÉÏ·½Ïò¼ü»ò'W'¼ü°´ÏÂ */
+	if (keys[VK_UP]  || keys['W'] )   /**< å‘ä¸Šæ–¹å‘é”®æˆ–'W'é”®æŒ‰ä¸‹ */
 	{
-		m_Camera.moveCamera(m_Camera.getSpeed());          /**< ÒÆ¶¯ÉãÏñ»ú */
+		m_Camera.moveCamera(m_Camera.getSpeed());          /**< ç§»åŠ¨æ‘„åƒæœº */
 		if (is_drive == 0)
 		{
 			if (man_turn == 0)	man_degree = 0; else	if (man_turn == 1)	man_degree = 90;
@@ -677,9 +676,9 @@ void UpdateCamera()
 				m_Static3DS.get_jeep_pos().x , 2.0, m_Static3DS.get_jeep_pos().z , 0, 1, 0);
 		}
 	}
-	if (keys[VK_DOWN] || keys['S']) /**< ÏòÏÂ·½Ïò¼ü»ò'S'¼ü°´ÏÂ */
+	if (keys[VK_DOWN] || keys['S']) /**< å‘ä¸‹æ–¹å‘é”®æˆ–'S'é”®æŒ‰ä¸‹ */
 	{
-		m_Camera.moveCamera(-m_Camera.getSpeed());         /**< ÒÆ¶¯ÉãÏñ»ú */
+		m_Camera.moveCamera(-m_Camera.getSpeed());         /**< ç§»åŠ¨æ‘„åƒæœº */
 		if (is_drive == 0)
 		{
 			if (man_turn == 0)	man_degree = 180; else	if (man_turn == 1)	man_degree = 270;
@@ -700,7 +699,7 @@ void UpdateCamera()
 				m_Static3DS.get_jeep_pos().x, 2.0, m_Static3DS.get_jeep_pos().z, 0, 1, 0);
 		}
 	}
-	if (keys[VK_LEFT] || keys['A'] ) /**< Ïò×ó·½Ïò¼ü»ò'A'¼ü°´ÏÂ */
+	if (keys[VK_LEFT] || keys['A'] ) /**< å‘å·¦æ–¹å‘é”®æˆ–'A'é”®æŒ‰ä¸‹ */
 	{
 		if (is_drive == 0)
 		{
@@ -722,11 +721,11 @@ void UpdateCamera()
 
 		}
 	}
-	if (keys[VK_RIGHT] || keys['D'] ) /**< ÏòÓÒ·½Ïò¼ü»ò'D'¼ü°´ÏÂ */
+	if (keys[VK_RIGHT] || keys['D'] ) /**< å‘å³æ–¹å‘é”®æˆ–'D'é”®æŒ‰ä¸‹ */
 	{
 		if (is_drive == 0)
 		{
-			m_Camera.yawCamera(m_Camera.getSpeed());            /**< ÒÆ¶¯ÉãÏñ»ú */
+			m_Camera.yawCamera(m_Camera.getSpeed());            /**< ç§»åŠ¨æ‘„åƒæœº */
 			if (man_turn == 0)	man_degree = 270; else	if (man_turn == 1)	man_degree = 0;
 			else	if (man_turn == 2)	man_degree = 90; else	if (man_turn == 3)	man_degree = 180;
 			if (m_Camera.getSpeed() >= 0.5)
@@ -750,7 +749,7 @@ void UpdateCamera()
 		man_action = 0;
 	}
 
-	if (keys['L'] && !isKeys['L'])                        /**< °´ÏÂL¼üÊ±µÆÁÁÃğ */
+	if (keys['L'] && !isKeys['L'])                        /**< æŒ‰ä¸‹Lé”®æ—¶ç¯äº®ç­ */
 	{
 		isKeys['L'] = true;
 		m_Ground.setlight();
@@ -759,8 +758,8 @@ void UpdateCamera()
 		isKeys['L'] = false;
 
 // **********************************************************************************************************************
-// ÌìÆø¡¢ÒôÀÖµÈ
-	if (keys['1'])                        /**< °´ÏÂ1¼üÊ±°×Ìì */
+// å¤©æ°”ã€éŸ³ä¹ç­‰
+	if (keys['1'])                        /**< æŒ‰ä¸‹1é”®æ—¶ç™½å¤© */
 	{
 		if (is_music == 0)
 		{
@@ -797,7 +796,7 @@ void UpdateCamera()
 		is_night = 0;
 		m_Ground.closelight();
 	}
-	if (keys['2'])                        /**< °´ÏÂ2¼üÊ±°øÍí */
+	if (keys['2'])                        /**< æŒ‰ä¸‹2é”®æ—¶å‚æ™š */
 	{
 		if (is_music == 0)
 		{
@@ -834,7 +833,7 @@ void UpdateCamera()
 		is_night = 2;
 		m_Ground.closelight();
 	}
-	if (keys['3'])                        /**< °´ÏÂ3¼üÊ±ºÚÒ¹ */
+	if (keys['3'])                        /**< æŒ‰ä¸‹3é”®æ—¶é»‘å¤œ */
 	{
 		if (is_music == 0)
 		{
@@ -873,7 +872,7 @@ void UpdateCamera()
 		is_night = 1;
 		m_Ground.openlight();
 	}
-	if (keys['4'])                        /**< ÇçÌì */
+	if (keys['4'])                        /**< æ™´å¤© */
 	{
 		if (is_music == 0)
 		{
@@ -911,7 +910,7 @@ void UpdateCamera()
 		is_night = 3;
 		m_Ground.closelight();
 	}
-	if (keys['5'])							/**< ÎíÌì */
+	if (keys['5'])							/**< é›¾å¤© */
 	{
 		glDisable(GL_LIGHTING);
 		if (is_music == 0)
@@ -948,7 +947,7 @@ void UpdateCamera()
 		is_night = 4;
 		m_Ground.closelight();
 	}
-	if (keys['6'])                        /**< ÏÂÑ© */
+	if (keys['6'])                        /**< ä¸‹é›ª */
 	{
 		glDisable(GL_LIGHTING);
 		if (is_music == 0)
@@ -986,7 +985,7 @@ void UpdateCamera()
 		m_Ground.closelight();
 	}
 
-	if (keys['M'] && !isKeys['M'])                        /**< °´ÏÂM¼üÊ± */
+	if (keys['M'] && !isKeys['M'])                        /**< æŒ‰ä¸‹Mé”®æ—¶ */
 	{
 		isKeys['M'] = true;
 		is_music = !is_music;
@@ -1009,51 +1008,51 @@ void UpdateCamera()
 			else if (is_night == 5)	mciSendString(TEXT("resume snow"), NULL, 0, NULL);
 		}
 	}
-	if (!keys['M'])                        /**< °´ÏÂI¼üÊ± */
+	if (!keys['M'])                        /**< æŒ‰ä¸‹Ié”®æ—¶ */
 	{
 		isKeys['M'] = false;
 	}
-	if (keys['P'] && !isKeys['P'])                        /**< °´ÏÂP¼üÊ± */
+	if (keys['P'] && !isKeys['P'])                        /**< æŒ‰ä¸‹Pé”®æ—¶ */
 	{
 		isKeys['P'] = true;
 		{
 			if (is_night == 0)
 			{
 				KillTimer(NULL, 1);
-				mciSendString(TEXT("pause day"), NULL, 0, NULL);	MessageBox(NULL, "µã»÷¼ÌĞø", "ÔİÍ£", MB_OK);
+				mciSendString(TEXT("pause day"), NULL, 0, NULL);	MessageBox(NULL, "ç‚¹å‡»ç»§ç»­", "æš‚åœ", MB_OK);
 				if (is_music == 0)									mciSendString(TEXT("resume day"), NULL, 0, NULL);
 				SetTimer(NULL, 1, 20, TimeProc);
 			}
 			else if (is_night == 1)
 			{
 				KillTimer(NULL, 1);
-				mciSendString(TEXT("pause night"), NULL, 0, NULL);	MessageBox(NULL, "µã»÷¼ÌĞø", "ÔİÍ£", MB_OK);
+				mciSendString(TEXT("pause night"), NULL, 0, NULL);	MessageBox(NULL, "ç‚¹å‡»ç»§ç»­", "æš‚åœ", MB_OK);
 				if (is_music == 0)									mciSendString(TEXT("resume night"), NULL, 0, NULL);
 				SetTimer(NULL, 1, 20, TimeProc);
 			}
 			else if (is_night == 2)
 			{
 				KillTimer(NULL, 1);
-				mciSendString(TEXT("pause dusk"), NULL, 0, NULL);	MessageBox(NULL, "µã»÷¼ÌĞø", "ÔİÍ£", MB_OK);
+				mciSendString(TEXT("pause dusk"), NULL, 0, NULL);	MessageBox(NULL, "ç‚¹å‡»ç»§ç»­", "æš‚åœ", MB_OK);
 				if (is_music == 0)									mciSendString(TEXT("resume dusk"), NULL, 0, NULL);
 				SetTimer(NULL, 1, 20, TimeProc);
 			}
 			else if (is_night == 3)
 			{
 				KillTimer(NULL, 1);
-				mciSendString(TEXT("pause sunday"), NULL, 0, NULL);	MessageBox(NULL, "µã»÷¼ÌĞø", "ÔİÍ£", MB_OK);
+				mciSendString(TEXT("pause sunday"), NULL, 0, NULL);	MessageBox(NULL, "ç‚¹å‡»ç»§ç»­", "æš‚åœ", MB_OK);
 				if (is_music == 0)									mciSendString(TEXT("resume sunday"), NULL, 0, NULL);
 			}
 			else if (is_night == 4)
 			{
 				KillTimer(NULL, 1);
-				mciSendString(TEXT("pause mist"), NULL, 0, NULL);	MessageBox(NULL, "µã»÷¼ÌĞø", "ÔİÍ£", MB_OK);
+				mciSendString(TEXT("pause mist"), NULL, 0, NULL);	MessageBox(NULL, "ç‚¹å‡»ç»§ç»­", "æš‚åœ", MB_OK);
 				if (is_music == 0)									mciSendString(TEXT("resume mist"), NULL, 0, NULL);
 			}
 			else if (is_night == 5)
 			{
 				KillTimer(NULL, 1);
-				mciSendString(TEXT("pause snow"), NULL, 0, NULL);	MessageBox(NULL, "µã»÷¼ÌĞø", "ÔİÍ£", MB_OK);
+				mciSendString(TEXT("pause snow"), NULL, 0, NULL);	MessageBox(NULL, "ç‚¹å‡»ç»§ç»­", "æš‚åœ", MB_OK);
 				if (is_music == 0)									mciSendString(TEXT("resume snow"), NULL, 0, NULL);
 			}
 		}
@@ -1067,10 +1066,10 @@ void UpdateCamera()
 	{
 		isKeys['P'] = false;
 	}
-	if ( keys['T'] && !isKeys['T']) /**< 'T'¼ü°´ÏÂ */
+	if ( keys['T'] && !isKeys['T']) /**< 'T'é”®æŒ‰ä¸‹ */
 	{
 		isKeys['T'] = true;
-		m_RenderMode = !m_RenderMode; /*ÇĞ»»»æÖÆÄ£Ê½ */
+		m_RenderMode = !m_RenderMode; /*åˆ‡æ¢ç»˜åˆ¶æ¨¡å¼ */
 		if (m_RenderMode)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		else
@@ -1080,9 +1079,9 @@ void UpdateCamera()
 	{
 		isKeys['T'] = false;
 	}
-	if (keys['B']) /**< 'B'¼ü°´ÏÂ */
+	if (keys['B']) /**< 'B'é”®æŒ‰ä¸‹ */
 	{
-		m_Camera.setCamera(1000, 3, -800, 1000, 3, -800 - 1, 0, 1, 0);	//XZ³õÊ¼ÏòÁ¿Ã²ËÆÖ»ÄÜ²î1
+		m_Camera.setCamera(1000, 3, -800, 1000, 3, -800 - 1, 0, 1, 0);	//XZåˆå§‹å‘é‡è²Œä¼¼åªèƒ½å·®1
 		man_turn = 0;
 		man_degree = 0;
 		is_drive = 0;
@@ -1096,18 +1095,18 @@ void UpdateCamera()
 			mciSendString(TEXT("close jeep"), NULL, 0, NULL);
 		}
 	}
-	if (keys['R'] && !isKeys['R'])                        //< °´ÏÂR¼üÊ±·ÅÑÌ»¨ 
+	if (keys['R'] && !isKeys['R'])                        //< æŒ‰ä¸‹Ré”®æ—¶æ”¾çƒŸèŠ± 
 	{
 		isKeys['R'] = true;
 		if(is_night==0 || is_night ==1)
-			FireInit();//ÖØÖÃÑÌ»¨
+			FireInit();//é‡ç½®çƒŸèŠ±
 	}
 	if (!keys['R'] )                       
 		isKeys['R'] = false;
 
-	if (keys[VK_PRIOR])   /**< PageUp¼ü°´ÏÂ */
+	if (keys[VK_PRIOR])   /**< PageUpé”®æŒ‰ä¸‹ */
 	{
-		Vector3 v_Pos = m_Camera.getPosition();         /**< ÊÓÏß¸ß¶ÈÉÏÉı */
+		Vector3 v_Pos = m_Camera.getPosition();         /**< è§†çº¿é«˜åº¦ä¸Šå‡ */
 		Vector3 v_View = m_Camera.getView();
 		if (v_Pos.y < 40)
 		{
@@ -1116,9 +1115,9 @@ void UpdateCamera()
 			m_Camera.setCamera(v_Pos.x, v_Pos.y, v_Pos.z, v_View.x, v_View.y, v_View.z, 0, 1, 0);
 		}
 	}
-	if (keys[VK_NEXT])   /**< PagezDown¼ü°´ÏÂ */
+	if (keys[VK_NEXT])   /**< PagezDowné”®æŒ‰ä¸‹ */
 	{
-		Vector3 v_Pos = m_Camera.getPosition();         /**< ÊÓÏß¸ß¶ÈÏÂ½µ */
+		Vector3 v_Pos = m_Camera.getPosition();         /**< è§†çº¿é«˜åº¦ä¸‹é™ */
 		Vector3 v_View = m_Camera.getView();
 		if (v_Pos.y > 1.5)
 		{
@@ -1127,14 +1126,14 @@ void UpdateCamera()
 			m_Camera.setCamera(v_Pos.x, v_Pos.y, v_Pos.z, v_View.x, v_View.y, v_View.z, 0, 1, 0);
 		}
 	}
-	if (keys[VK_RETURN] && !isKeys[VK_RETURN])   //»Ø³µ¼ü
+	if (keys[VK_RETURN] && !isKeys[VK_RETURN])   //å›è½¦é”®
 	{
 		isKeys[VK_RETURN] = true;
 		if (is_drive == 0)
 		{
 			if (fabs(m_Static3DS.get_jeep_pos().x - man_x) < 15 && fabs(m_Static3DS.get_jeep_pos().z - man_z) < 15)
 			{
-				//¼ÓÈëÆô¶¯ÒıÇæÉù
+				//åŠ å…¥å¯åŠ¨å¼•æ“å£°
 				mciSendString(TEXT("open data\\sound\\jeep.mp3 alias jeep"), NULL, 0, NULL);
 				mciSendString(TEXT("play jeep "), NULL, 0, NULL);
 				if (jeep_first == 0)
@@ -1158,23 +1157,23 @@ void UpdateCamera()
 	{
 		isKeys[VK_RETURN] = false;
 	}
-	/** ¸ù¾İµØĞÎ¸ß¶È¸üĞÂÉãÏñ»ú */
-	Vector3 vPos = m_Camera.getPosition();                  /**< µÃµ½µ±Ç°ÉãÏñ»úÎ»ÖÃ */
+	/** æ ¹æ®åœ°å½¢é«˜åº¦æ›´æ–°æ‘„åƒæœº */
+	Vector3 vPos = m_Camera.getPosition();                  /**< å¾—åˆ°å½“å‰æ‘„åƒæœºä½ç½® */
 	Vector3 vNewPos = vPos; 
 	man_x = vNewPos.x;
 	man_z = vNewPos.z;
 
-	/** ÉèÖÃÉãÏñ»ú¸ß¶ÈÎª µØĞÎ¸ß¶È + 10 */
+	/** è®¾ç½®æ‘„åƒæœºé«˜åº¦ä¸º åœ°å½¢é«˜åº¦ + 10 */
 //	vNewPos.y = (float)m_Terrain.getAveHeight(vPos.x,vPos.z ) + 10;
-	//vNewPos.y =5.0f; // ÄãÕ¾µÄÎ»ÖÃ¸ß¶È
-	/** µÃµ½¸ß¶È²îÖµ */
+	//vNewPos.y =5.0f; // ä½ ç«™çš„ä½ç½®é«˜åº¦
+	/** å¾—åˆ°é«˜åº¦å·®å€¼ */
 //	float temp = vNewPos.y - vPos.y;
 
-	/** ¸üĞÂÉãÏñ»ú·½Ïò */
+	/** æ›´æ–°æ‘„åƒæœºæ–¹å‘ */
 	Vector3 vView = m_Camera.getView();
 	//vView.y += 0.0f;
 
-	/** ÉèÖÃÉãÏñ»ú */
+	/** è®¾ç½®æ‘„åƒæœº */
 	m_Camera.setCamera(vNewPos.x,  vNewPos.y,  vNewPos.z,
 		vView.x,	   vView.y,	   vView.z,	 
 		0, 1, 0);								
@@ -1185,37 +1184,37 @@ void UpdateCamera()
 
 // **********************************************************************************************************************
 
-/** ³ÌĞò¸üĞÂº¯Êı */
+/** ç¨‹åºæ›´æ–°å‡½æ•° */
 void Update()						
 {
-	/** ÓÃ»§×Ô¶¨ÒåµÄ¸üĞÂ¹ı³Ì */
+	/** ç”¨æˆ·è‡ªå®šä¹‰çš„æ›´æ–°è¿‡ç¨‹ */
 
-	/** ¸üĞÂÉãÏñ»ú */
+	/** æ›´æ–°æ‘„åƒæœº */
 	UpdateCamera();
 
 	m_Flag.Update();
 }
 
-GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize The GL Window	ÖØĞÂÉèÖÃOpenGL³¡¾°µÄ´óĞ¡
+GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize The GL Window	é‡æ–°è®¾ç½®OpenGLåœºæ™¯çš„å¤§å°
 {
-	if (height==0)										// Prevent A Divide By Zero By	 ·ÀÖ¹±»Áã³ı
+	if (height==0)										// Prevent A Divide By Zero By	 é˜²æ­¢è¢«é›¶é™¤
 	{
 		height=1;										// Making Height Equal One
 	}
 
-	glViewport(0,0,width,height);						// Reset The Current Viewport	ÖØ½¨µ±Ç°´°¿Ú
-	glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix	Ñ¡ÔñÍ¶Ó°¾ØÕó
-	glLoadIdentity();									// Reset The Projection Matrix	½«µ±Ç°¾ØÕó»Ö¸´³ÉÔ­Ê¼×´Ì¬
+	glViewport(0,0,width,height);						// Reset The Current Viewport	é‡å»ºå½“å‰çª—å£
+	glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix	é€‰æ‹©æŠ•å½±çŸ©é˜µ
+	glLoadIdentity();									// Reset The Projection Matrix	å°†å½“å‰çŸ©é˜µæ¢å¤æˆåŸå§‹çŠ¶æ€
 
-	// Calculate The Aspect Ratio Of The Window	¼ÆËã´°¿Úºá×İ±È
-	gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.05f,4000.0f);	//ÉèÖÃÍ¸ÊÓÍ¶Ó°¾ØÕó
+	// Calculate The Aspect Ratio Of The Window	è®¡ç®—çª—å£æ¨ªçºµæ¯”
+	gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.05f,4000.0f);	//è®¾ç½®é€è§†æŠ•å½±çŸ©é˜µ
 	//gluPerspective(
-	//½Ç¶È,
-	//ÊÓ¾°ÌåµÄ¿í¸ß±È,
-	//ÑØzÖá·½ÏòµÄÁ½²ÃÃæÖ®¼äµÄ¾àÀëµÄ½ü´¦£¨Éî¶ÈÆğµã£©,
-	//ÑØzÖá·½ÏòµÄÁ½²ÃÃæÖ®¼äµÄ¾àÀëµÄÔ¶´¦£¨Éî¶ÈÖÕµã£©);
-	glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix	Ñ¡ÔñÄ£ĞÍ¹Û²ì¾ØÕó	
-	glLoadIdentity();									// Reset The Modelview Matrix	ÖØÖÃµ±Ç°¾ØÕó
+	//è§’åº¦,
+	//è§†æ™¯ä½“çš„å®½é«˜æ¯”,
+	//æ²¿zè½´æ–¹å‘çš„ä¸¤è£é¢ä¹‹é—´çš„è·ç¦»çš„è¿‘å¤„ï¼ˆæ·±åº¦èµ·ç‚¹ï¼‰,
+	//æ²¿zè½´æ–¹å‘çš„ä¸¤è£é¢ä¹‹é—´çš„è·ç¦»çš„è¿œå¤„ï¼ˆæ·±åº¦ç»ˆç‚¹ï¼‰);
+	glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix	é€‰æ‹©æ¨¡å‹è§‚å¯ŸçŸ©é˜µ	
+	glLoadIdentity();									// Reset The Modelview Matrix	é‡ç½®å½“å‰çŸ©é˜µ
 }
 
 int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
@@ -1224,71 +1223,71 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 //	glDisable(GL_LIGHTING);
 	
 	glEnable(GL_NORMALIZE);
-	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading	ÆôÓÃÒõÓ°Æ½»¬
-	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background	ÉèÎªºÚÉ«
-//	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);// ÉèÖÃ±³¾°µÄÑÕÉ«ÎªÎíÆøµÄÑÕÉ«
+	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading	å¯ç”¨é˜´å½±å¹³æ»‘
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background	è®¾ä¸ºé»‘è‰²
+//	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);// è®¾ç½®èƒŒæ™¯çš„é¢œè‰²ä¸ºé›¾æ°”çš„é¢œè‰²
 
 	////////////NEW ///////////////////
-	m_Camera.setCamera(1000, 3, -800, 1000, 3, -800 - 1, 0, 1, 0);	//XZ³õÊ¼ÏòÁ¿Ã²ËÆÖ»ÄÜ²î1
+	m_Camera.setCamera(1000, 3, -800, 1000, 3, -800 - 1, 0, 1, 0);	//XZåˆå§‹å‘é‡è²Œä¼¼åªèƒ½å·®1
 
 	///////////NEW ///////////////////
-	//glClearColor(ºì, ÂÌ, À¶, Í¸Ã÷¶È);
-	glClearDepth(1.0f);									// Depth Buffer Setup	ÆôÓÃÉî¶È»º´æ
-	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing	ÆôÓÃÉî¶È²âÊÔ
+	//glClearColor(çº¢, ç»¿, è“, é€æ˜åº¦);
+	glClearDepth(1.0f);									// Depth Buffer Setup	å¯ç”¨æ·±åº¦ç¼“å­˜
+	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing	å¯ç”¨æ·±åº¦æµ‹è¯•
 	
 //	glEnable(GL_LIGHT0);
-//	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do	Éî¶È²âÊÔµÄÀàĞÍ	
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations	Í¸ÊÓĞŞÕı
+//	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do	æ·±åº¦æµ‹è¯•çš„ç±»å‹	
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations	é€è§†ä¿®æ­£
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_COLOR_MATERIAL);
 
-	//ÉèÖÃ¹âÔ´²ÎÊı
-	glLightfv(GL_LIGHT1, GL_AMBIENT, LightAmbient);		//ÉèÖÃ»·¾³¹â
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, LightDiffuse);		//ÉèÖÃÂş·´Éä¹â
-	glLightfv(GL_LIGHT1, GL_POSITION, LightPosition);		//¹âÔ´µÄÎ»ÖÃ
-	glEnable(GL_LIGHT1);								//ÔÊĞí¹âÔ´Ò»
+	//è®¾ç½®å…‰æºå‚æ•°
+	glLightfv(GL_LIGHT1, GL_AMBIENT, LightAmbient);		//è®¾ç½®ç¯å¢ƒå…‰
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, LightDiffuse);		//è®¾ç½®æ¼«åå°„å…‰
+	glLightfv(GL_LIGHT1, GL_POSITION, LightPosition);		//å…‰æºçš„ä½ç½®
+	glEnable(GL_LIGHT1);								//å…è®¸å…‰æºä¸€
 	
-	glFogi(GL_FOG_MODE, fogMode[fogfilter]);  // ÉèÖÃÎíÆøµÄÄ£Ê½
-	glFogfv(GL_FOG_COLOR, fogColor);   // ÉèÖÃÎíµÄÑÕÉ«
-	glFogf(GL_FOG_DENSITY, 0.005f);   // ÉèÖÃÎíµÄÃÜ¶È
-	glHint(GL_FOG_HINT, GL_DONT_CARE);   // ÉèÖÃÏµÍ³ÈçºÎ¼ÆËãÎíÆø
-	glFogf(GL_FOG_START, 1.0f);    // ÎíÆøµÄ¿ªÊ¼Î»ÖÃ
-	glFogf(GL_FOG_END, 5.0f);    // ÎíÆøµÄ½áÊøÎ»ÖÃ
-//	glEnable(GL_FOG);     // Ê¹ÓÃÎíÆø
+	glFogi(GL_FOG_MODE, fogMode[fogfilter]);  // è®¾ç½®é›¾æ°”çš„æ¨¡å¼
+	glFogfv(GL_FOG_COLOR, fogColor);   // è®¾ç½®é›¾çš„é¢œè‰²
+	glFogf(GL_FOG_DENSITY, 0.005f);   // è®¾ç½®é›¾çš„å¯†åº¦
+	glHint(GL_FOG_HINT, GL_DONT_CARE);   // è®¾ç½®ç³»ç»Ÿå¦‚ä½•è®¡ç®—é›¾æ°”
+	glFogf(GL_FOG_START, 1.0f);    // é›¾æ°”çš„å¼€å§‹ä½ç½®
+	glFogf(GL_FOG_END, 5.0f);    // é›¾æ°”çš„ç»“æŸä½ç½®
+//	glEnable(GL_FOG);     // ä½¿ç”¨é›¾æ°”
 
-	//³õÊ¼»¯¸÷ÖÖÄ£ĞÍ
+	//åˆå§‹åŒ–å„ç§æ¨¡å‹
 	m_MDLOBJ.init(&m_Camera);
 	
 
-	/** ³õÊ¼»¯×ÖÌå */
+	/** åˆå§‹åŒ–å­—ä½“ */
 	if(!m_Font.InitFont())
-		MessageBox(NULL,"³õÊ¼»¯×ÖÌåÊ§°Ü!","´íÎó",MB_OK);
+		MessageBox(NULL,"åˆå§‹åŒ–å­—ä½“å¤±è´¥!","é”™è¯¯",MB_OK);
 
 	if(!m_Ground.init())
 	{
-		MessageBox(NULL,"³õÊ¼»¯µØ°åÊ§°Ü!","´íÎó",MB_OK);
+		MessageBox(NULL,"åˆå§‹åŒ–åœ°æ¿å¤±è´¥!","é”™è¯¯",MB_OK);
 		exit(0);
 	}
-	/** ³õÊ¼»¯Ìì¿Õ */
+	/** åˆå§‹åŒ–å¤©ç©º */
 	if(!m_SkyBox.init())
 	{
-		MessageBox(NULL,"³õÊ¼»¯Ìì¿ÕÊ§°Ü!","´íÎó",MB_OK);
+		MessageBox(NULL,"åˆå§‹åŒ–å¤©ç©ºå¤±è´¥!","é”™è¯¯",MB_OK);
 		exit(0);
 	}
 
 	if(!m_Static3DS.init())
 	{ 
-		MessageBox(NULL,"³õÊ¼»¯¾²Ì¬Ä£ĞÍÊ§°Ü!","´íÎó",MB_OK);
+		MessageBox(NULL,"åˆå§‹åŒ–é™æ€æ¨¡å‹å¤±è´¥!","é”™è¯¯",MB_OK);
 		exit(0);
 
 	}
 
 	if (!m_snow.Init(5000))
 	{
-		MessageBox(NULL, "³õÊ¼»¯ÏÂÑ©Ê§°Ü!", "´íÎó", MB_OK);
+		MessageBox(NULL, "åˆå§‹åŒ–ä¸‹é›ªå¤±è´¥!", "é”™è¯¯", MB_OK);
 		exit(0);
 	}
-	m_snow.Load("data\\textures\\snow.bmp", m_snow.m_texture);	       // ÖÆÔìÑ©
+	m_snow.Load("data\\textures\\snow.bmp", m_snow.m_texture);	       // åˆ¶é€ é›ª
 
 	mciSendString(TEXT("open data\\sound\\day.mp3 alias day"), NULL, 0, NULL);
 	mciSendString(TEXT("open data\\sound\\night.mp3 alias night"), NULL, 0, NULL);
@@ -1304,36 +1303,36 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 
 int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 {	
-	//Sleep(20);	//ÑÓÊ±20ºÁÃë
+	//Sleep(20);	//å»¶æ—¶20æ¯«ç§’
 	Vector3 vAxis = m_Camera.m_View - m_Camera.m_Position;
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer	ÇåÆÁºÍÇå³ıÉî¶È»º´æ
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer	æ¸…å±å’Œæ¸…é™¤æ·±åº¦ç¼“å­˜
 	//glEnable(GL_LIGHTING);
 	glLoadIdentity();
 	
 	SetTimer(NULL,1, 1000, TimeProc);
 
-	m_Camera.setLook();// ÉèÖÃÏà»úÎ»ÖÃ
+	m_Camera.setLook();// è®¾ç½®ç›¸æœºä½ç½®
 		
-	m_SkyBox.render(is_night);			//äÖÈ¾Ìì¿Õ
+	m_SkyBox.render(is_night);			//æ¸²æŸ“å¤©ç©º
 
-	m_Ground.render();			//äÖÈ¾µØ°å
+	m_Ground.render();			//æ¸²æŸ“åœ°æ¿
 
-	m_Flag.render(m_Ground.m_texture[109], m_Ground.m_texture[112], 880, 15, -910);//Æì×Ó
+	m_Flag.render(m_Ground.m_texture[109], m_Ground.m_texture[112], 880, 15, -910);//æ——å­
 	m_Flag.render(m_Ground.m_texture[110], m_Ground.m_texture[112], 880, 14, -900);
 	m_Flag.render(m_Ground.m_texture[111], m_Ground.m_texture[112], 880, 14, -920);
 
-	if(is_night==2)		m_Static3DS.balloon_render();	//Êä³ö¾²Ì¬3DS
+	if(is_night==2)		m_Static3DS.balloon_render();	//è¾“å‡ºé™æ€3DS
 	
-	if(is_snow==1)		m_snow.Render();//ÏÂÑ©
+	if(is_snow==1)		m_snow.Render();//ä¸‹é›ª
 
-	m_Static3DS.jeep_render(m_Static3DS.get_jeep_pos().x, 1.2, m_Static3DS.get_jeep_pos().z, jeep_angle);//¼ªÆÕ³µ
+	m_Static3DS.jeep_render(m_Static3DS.get_jeep_pos().x, 1.2, m_Static3DS.get_jeep_pos().z, jeep_angle);//å‰æ™®è½¦
 
-	m_MDLOBJ.render();//MDLÈËÎïÄ£ĞÍ
+	m_MDLOBJ.render();//MDLäººç‰©æ¨¡å‹
 		
-	if (is_night == 0 || is_night == 1)	FireWorks();//ÑÌ»¨£¨°×ÌìÒ¹Íí£©
+	if (is_night == 0 || is_night == 1)	FireWorks();//çƒŸèŠ±ï¼ˆç™½å¤©å¤œæ™šï¼‰
 
 	if (is_drive == 0)
-		m_MDLOBJ.man_render(man_turn, man_x, man_z, man_degree, man_action);//ÈËÎïÎ»ÖÃ¼°·½Ïò
+		m_MDLOBJ.man_render(man_turn, man_x, man_z, man_degree, man_action);//äººç‰©ä½ç½®åŠæ–¹å‘
 
 	PrintCurrentText();
 
@@ -1350,18 +1349,18 @@ void CALLBACK TimeProc(HWND hwnd, UINT message, UINT idTimer, DWORD dwTime)
 	m_MDLOBJ.move(car_stop);
 }
 
-GLvoid KillGLWindow(GLvoid)								// Properly Kill The Window	Õı³£¹Ø±Õ´°¿Ú
+GLvoid KillGLWindow(GLvoid)								// Properly Kill The Window	æ­£å¸¸å…³é—­çª—å£
 {
 	if (fullscreen)										// Are We In Fullscreen Mode?
 	{
-		ChangeDisplaySettings(NULL,0);					// If So Switch Back To The Desktop	·µ»ØÔ­Ê¼×ÀÃæ 0µÄÒâË¼ÊÇ´Ó×¢²á±í¶Á³ö×ÀÃæµÄÅäÖÃ
+		ChangeDisplaySettings(NULL,0);					// If So Switch Back To The Desktop	è¿”å›åŸå§‹æ¡Œé¢ 0çš„æ„æ€æ˜¯ä»æ³¨å†Œè¡¨è¯»å‡ºæ¡Œé¢çš„é…ç½®
 		ShowCursor(TRUE);								// Show Mouse Pointer
 	}
 
 	if (hRC)											// Do We Have A Rendering Context?
 	{
 		if (!wglMakeCurrent(NULL,NULL))					// Are We Able To Release The DC And RC Contexts?
-														//wglMakeCurrent( HDC hdc, HGLRC hglrc)£»
+														//wglMakeCurrent( HDC hdc, HGLRC hglrc)ï¼›
 		{
 			MessageBox(NULL,"Release Of DC And RC Failed.","SHUTDOWN ERROR",MB_OK | MB_ICONINFORMATION);
 		}
@@ -1385,7 +1384,7 @@ GLvoid KillGLWindow(GLvoid)								// Properly Kill The Window	Õı³£¹Ø±Õ´°¿Ú
 		hWnd=NULL;										// Set hWnd To NULL
 	}
 
-	if (!UnregisterClass("OpenGL",hInstance))			// Are We Able To Unregister Class	×¢Ïú´°¿ÚÀà
+	if (!UnregisterClass("OpenGL",hInstance))			// Are We Able To Unregister Class	æ³¨é”€çª—å£ç±»
 	{
 		MessageBox(NULL,"Could Not Unregister Class.","SHUTDOWN ERROR",MB_OK | MB_ICONINFORMATION);
 		hInstance=NULL;									// Set hInstance To NULL
@@ -1432,7 +1431,7 @@ bool ReleaseKey(bool key,bool *isKeys)
 
 BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscreenflag)
 {
-	GLuint		PixelFormat;			// Holds The Results After Searching For A Match	±£´æ²éÕÒÆ¥ÅäµÄ½á¹û
+	GLuint		PixelFormat;			// Holds The Results After Searching For A Match	ä¿å­˜æŸ¥æ‰¾åŒ¹é…çš„ç»“æœ
 	WNDCLASS	wc;						// Windows Class Structure
 	DWORD		dwExStyle;				// Window Extended Style
 	DWORD		dwStyle;				// Window Style
@@ -1446,12 +1445,12 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 	fullscreen=fullscreenflag;			// Set The Global Fullscreen Flag
 
 	hInstance			= GetModuleHandle(NULL);				// Grab An Instance For Our Window
-	wc.style			= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;	// Redraw On Size, And Own DC For Window.	ÒÆ¶¯Ê±ÖØ»­£¬²¢Îª´°¿ÚÈ¡µÃDC
+	wc.style			= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;	// Redraw On Size, And Own DC For Window.	ç§»åŠ¨æ—¶é‡ç”»ï¼Œå¹¶ä¸ºçª—å£å–å¾—DC
 	wc.lpfnWndProc		= (WNDPROC) WndProc;					// WndProc Handles Messages
 	wc.cbClsExtra		= 0;									// No Extra Window Data
 	wc.cbWndExtra		= 0;									// No Extra Window Data
 	wc.hInstance		= hInstance;							// Set The Instance
-	wc.hIcon			= LoadIcon(NULL, IDI_WINLOGO);			// Load The Default Icon	´°¿ÚµÄÍ¼±ê
+	wc.hIcon			= LoadIcon(NULL, IDI_WINLOGO);			// Load The Default Icon	çª—å£çš„å›¾æ ‡
 	wc.hCursor			= LoadCursor(NULL, IDC_ARROW);			// Load The Arrow Pointer
 	wc.hbrBackground	= NULL;									// No Background Required For GL
 	wc.lpszMenuName		= NULL;									// We Don't Want A Menu
@@ -1463,10 +1462,10 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 		return FALSE;											// Return FALSE
 	}
 	
-/*	if (fullscreen)												// Attempt Fullscreen Mode?	·ÖÅäÁËÓÃÓÚ´æ´¢ÊÓÆµÉèÖÃµÄ¿Õ¼ä
+/*	if (fullscreen)												// Attempt Fullscreen Mode?	åˆ†é…äº†ç”¨äºå­˜å‚¨è§†é¢‘è®¾ç½®çš„ç©ºé—´
 	{
-		DEVMODE dmScreenSettings;								// Device Mode	Éè±¸Ä£Ê½
-		memset(&dmScreenSettings,0,sizeof(dmScreenSettings));	// Makes Sure Memory's Cleared	È·±£ÄÚ´æÇå¿ÕÎªÁã
+		DEVMODE dmScreenSettings;								// Device Mode	è®¾å¤‡æ¨¡å¼
+		memset(&dmScreenSettings,0,sizeof(dmScreenSettings));	// Makes Sure Memory's Cleared	ç¡®ä¿å†…å­˜æ¸…ç©ºä¸ºé›¶
 		dmScreenSettings.dmSize=sizeof(dmScreenSettings);		// Size Of The Devmode Structure
 		dmScreenSettings.dmPelsWidth	= width;				// Selected Screen Width
 		dmScreenSettings.dmPelsHeight	= height;				// Selected Screen Height
@@ -1501,19 +1500,19 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 		dwExStyle=WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;			// Window Extended Style
 		dwStyle=WS_OVERLAPPEDWINDOW;							// Windows Style
 		////////////////NEW ///////////////
-		int wid = GetSystemMetrics(SM_CXSCREEN);		/**< »ñÈ¡µ±Ç°ÆÁÄ»¿í */
-		int hei = GetSystemMetrics(SM_CYSCREEN);		/**< »ñÈ¡µ±Ç°ÆÁÄ»¸ß */
-		nX = (wid - (WindowRect.right-WindowRect.left)) / 2;                    /**< ¼ÆËã´°¿Ú¾ÓÖĞÓÃ */
+		int wid = GetSystemMetrics(SM_CXSCREEN);		/**< è·å–å½“å‰å±å¹•å®½ */
+		int hei = GetSystemMetrics(SM_CYSCREEN);		/**< è·å–å½“å‰å±å¹•é«˜ */
+		nX = (wid - (WindowRect.right-WindowRect.left)) / 2;                    /**< è®¡ç®—çª—å£å±…ä¸­ç”¨ */
 		nY = (hei - (WindowRect.bottom-WindowRect.top)) / 2;			
-		/// µ÷ÕûÎÒÃÇ´°¿ÚµÄ´óĞ¡£¬Ê¹Æä¿Í»§ÇøµÄ´óĞ¡ÎªÎÒÃÇÉèÖÃµÄ´óĞ¡
+		/// è°ƒæ•´æˆ‘ä»¬çª—å£çš„å¤§å°ï¼Œä½¿å…¶å®¢æˆ·åŒºçš„å¤§å°ä¸ºæˆ‘ä»¬è®¾ç½®çš„å¤§å°
 		//AdjustWindowRectEx(&WindowRect, windowStyle, 0, windowExtendedStyle);
-		/// ÅĞ¶Ï´°¿ÚµÄ×óÉÏ½ÇÊÇ·ñÒş²ØÔÚ×ÀÃæÍâ
-		if (WindowRect.left < 0)										/**< Èç¹û´°¿ÚX×ø±êÎª¸º£¬ÒÆ¶¯×ø±êµ½0´¦£¬²¢µ÷Õû´°¿ÚµÄÎ»ÖÃ */
+		/// åˆ¤æ–­çª—å£çš„å·¦ä¸Šè§’æ˜¯å¦éšè—åœ¨æ¡Œé¢å¤–
+		if (WindowRect.left < 0)										/**< å¦‚æœçª—å£Xåæ ‡ä¸ºè´Ÿï¼Œç§»åŠ¨åæ ‡åˆ°0å¤„ï¼Œå¹¶è°ƒæ•´çª—å£çš„ä½ç½® */
 		{
 			WindowRect.right -= WindowRect.left;						
 			WindowRect.left = 0;										
 		}
-		if (WindowRect.top < 0)											/**< Èç¹û´°¿ÚY×ø±êÎª¸º£¬ÒÆ¶¯×ø±êµ½0´¦£¬²¢µ÷Õû´°¿ÚµÄÎ»ÖÃ */
+		if (WindowRect.top < 0)											/**< å¦‚æœçª—å£Yåæ ‡ä¸ºè´Ÿï¼Œç§»åŠ¨åæ ‡åˆ°0å¤„ï¼Œå¹¶è°ƒæ•´çª—å£çš„ä½ç½® */
 		{
 			WindowRect.bottom -= WindowRect.top;						
 			WindowRect.top = 0;											
@@ -1521,7 +1520,7 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 		////////////////////NEW//////////////
 //}
 
-	AdjustWindowRectEx(&WindowRect, dwStyle, FALSE, dwExStyle);		// Adjust Window To True Requested Size	Ê¹³¡¾°²»»á±»±ß¿òÕÚ¸Ç×¡
+	AdjustWindowRectEx(&WindowRect, dwStyle, FALSE, dwExStyle);		// Adjust Window To True Requested Size	ä½¿åœºæ™¯ä¸ä¼šè¢«è¾¹æ¡†é®ç›–ä½
 
 	// Create The Window
 	if (!(hWnd=CreateWindowEx(	dwExStyle,							// Extended Style For The Window
@@ -1549,7 +1548,7 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 		1,											// Version Number
 		PFD_DRAW_TO_WINDOW |						// Format Must Support Window
 		PFD_SUPPORT_OPENGL |						// Format Must Support OpenGL
-		PFD_DOUBLEBUFFER,							// Must Support Double Buffering	±ØĞëÖ§³ÖË«»º³å
+		PFD_DOUBLEBUFFER,							// Must Support Double Buffering	å¿…é¡»æ”¯æŒåŒç¼“å†²
 		PFD_TYPE_RGBA,								// Request An RGBA Format
 		bits,										// Select Our Color Depth
 		0, 0, 0, 0, 0, 0,							// Color Bits Ignored
@@ -1676,25 +1675,25 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
 				if (man_turn == 0)
 				{
 					man_degree = 90;
-					m_Camera.setCamera(v_Pos.x + 10, v_Pos.y, v_Pos.z - 10, v_Pos.x + 9, v_Pos.y, v_Pos.z - 10, 0, 1, 0);	//×ó×ª
+					m_Camera.setCamera(v_Pos.x + 10, v_Pos.y, v_Pos.z - 10, v_Pos.x + 9, v_Pos.y, v_Pos.z - 10, 0, 1, 0);	//å·¦è½¬
 					man_turn = 1;
 				}
 				else if (man_turn == 1)
 				{
 					man_degree = 180;
-					m_Camera.setCamera(v_Pos.x - 10, v_Pos.y, v_Pos.z - 10, v_Pos.x - 10, v_Pos.y, v_Pos.z - 9, 0, 1, 0);//ºó×ª
+					m_Camera.setCamera(v_Pos.x - 10, v_Pos.y, v_Pos.z - 10, v_Pos.x - 10, v_Pos.y, v_Pos.z - 9, 0, 1, 0);//åè½¬
 					man_turn = 2;
 				}
 				else if (man_turn == 2)
 				{
 					man_degree = 270;
-					m_Camera.setCamera(v_Pos.x - 10, v_Pos.y, v_Pos.z + 10, v_Pos.x - 9, v_Pos.y, v_Pos.z + 10, 0, 1, 0);//ÓÒ×ª
+					m_Camera.setCamera(v_Pos.x - 10, v_Pos.y, v_Pos.z + 10, v_Pos.x - 9, v_Pos.y, v_Pos.z + 10, 0, 1, 0);//å³è½¬
 					man_turn = 3;
 				}
 				else if (man_turn == 3)
 				{
 					man_degree = 0;
-					m_Camera.setCamera(v_Pos.x + 10, v_Pos.y, v_Pos.z + 10, v_Pos.x + 10, v_Pos.y, v_Pos.z + 9, 0, 1, 0);//Ç°×ª
+					m_Camera.setCamera(v_Pos.x + 10, v_Pos.y, v_Pos.z + 10, v_Pos.x + 10, v_Pos.y, v_Pos.z + 9, 0, 1, 0);//å‰è½¬
 					man_turn = 0;
 				}
 			}
@@ -1709,25 +1708,25 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
 				if (man_turn == 0)
 				{
 					man_degree = 270;
-					m_Camera.setCamera(v_Pos.x - 10, v_Pos.y, v_Pos.z - 10, v_Pos.x - 9, v_Pos.y, v_Pos.z - 10, 0, 1, 0);//ÓÒ×ª
+					m_Camera.setCamera(v_Pos.x - 10, v_Pos.y, v_Pos.z - 10, v_Pos.x - 9, v_Pos.y, v_Pos.z - 10, 0, 1, 0);//å³è½¬
 					man_turn = 3;
 				}
 				else if (man_turn == 1)
 				{
 					man_degree = 0;
-					m_Camera.setCamera(v_Pos.x - 10, v_Pos.y, v_Pos.z + 10, v_Pos.x - 10, v_Pos.y, v_Pos.z + 9, 0, 1, 0);//Ç°×ª
+					m_Camera.setCamera(v_Pos.x - 10, v_Pos.y, v_Pos.z + 10, v_Pos.x - 10, v_Pos.y, v_Pos.z + 9, 0, 1, 0);//å‰è½¬
 					man_turn = 0;
 				}
 				else if (man_turn == 2)
 				{
 					man_degree = 90;
-					m_Camera.setCamera(v_Pos.x + 10, v_Pos.y, v_Pos.z + 10, v_Pos.x + 9, v_Pos.y, v_Pos.z + 10, 0, 1, 0);	//×ó×ª
+					m_Camera.setCamera(v_Pos.x + 10, v_Pos.y, v_Pos.z + 10, v_Pos.x + 9, v_Pos.y, v_Pos.z + 10, 0, 1, 0);	//å·¦è½¬
 					man_turn = 1;
 				}
 				else if (man_turn == 3)
 				{
 					man_degree = 180;
-					m_Camera.setCamera(v_Pos.x + 10, v_Pos.y, v_Pos.z - 10, v_Pos.x + 10, v_Pos.y, v_Pos.z - 9, 0, 1, 0);//ºó×ª
+					m_Camera.setCamera(v_Pos.x + 10, v_Pos.y, v_Pos.z - 10, v_Pos.x + 10, v_Pos.y, v_Pos.z - 9, 0, 1, 0);//åè½¬
 					man_turn = 2;
 				}
 			}
@@ -1758,24 +1757,24 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 	BOOL	done=FALSE;								// Bool Variable To Exit Loop
 	
 	// Ask The User Which Screen Mode They Prefer
-	if (MessageBox(NULL,"\n\t»¶Ó­À´µ½³ÇÕòÂşÓÎ£¡\n\n\n\t      ÊÇ·ñÈ«ÆÁ£¿", "³ÇÕòÂşÓÎ", MB_YESNO ) == IDNO)
+	if (MessageBox(NULL,"\n\tæ¬¢è¿æ¥åˆ°åŸé•‡æ¼«æ¸¸ï¼\n\n\n\t      æ˜¯å¦å…¨å±ï¼Ÿ", "åŸé•‡æ¼«æ¸¸", MB_YESNO ) == IDNO)
 	{
 		fullscreen=FALSE;							// Windowed Mode
 	}
 
 	// Create Our OpenGL Window
-	//if (!CreateGLWindow("»ùÓÚOpenGLµÄĞéÄâ³¡¾°¹¹½¨Ö®³ÇÕòÂşÓÎ",800,600,16,fullscreen))
+	//if (!CreateGLWindow("åŸºäºOpenGLçš„è™šæ‹Ÿåœºæ™¯æ„å»ºä¹‹åŸé•‡æ¼«æ¸¸",800,600,16,fullscreen))
 
 	if (fullscreen == TRUE)
 	{
-		if (!CreateGLWindow("»ùÓÚOpenGLµÄĞéÄâ³¡¾°¹¹½¨Ö®³ÇÕòÂşÓÎ", GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), 16, fullscreen))
+		if (!CreateGLWindow("åŸºäºOpenGLçš„è™šæ‹Ÿåœºæ™¯æ„å»ºä¹‹åŸé•‡æ¼«æ¸¸", GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), 16, fullscreen))
 		{
 			return 0;									// Quit If Window Was Not Created
 		}
 	}
 	else
 	{
-		if (!CreateGLWindow("»ùÓÚOpenGLµÄĞéÄâ³¡¾°¹¹½¨Ö®³ÇÕòÂşÓÎ", 800, 600, 16, fullscreen))
+		if (!CreateGLWindow("åŸºäºOpenGLçš„è™šæ‹Ÿåœºæ™¯æ„å»ºä¹‹åŸé•‡æ¼«æ¸¸", 800, 600, 16, fullscreen))
 		{
 			return 0;									// Quit If Window Was Not Created
 		}
@@ -1784,7 +1783,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 
 	while(!done)									// Loop That Runs While done=FALSE
 	{
-		if (PeekMessage(&msg,NULL,0,0,PM_REMOVE))	// Is There A Message Waiting?	PeekMessageÄÜ²»Ëø×¡³ÌĞòÏÂ½øĞĞÏûÏ¢¼ì²é
+		if (PeekMessage(&msg,NULL,0,0,PM_REMOVE))	// Is There A Message Waiting?	PeekMessageèƒ½ä¸é”ä½ç¨‹åºä¸‹è¿›è¡Œæ¶ˆæ¯æ£€æŸ¥
 		{
 			if (msg.message==WM_QUIT)				// Have We Received A Quit Message?
 			{
