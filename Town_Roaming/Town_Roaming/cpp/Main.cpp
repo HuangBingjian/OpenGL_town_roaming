@@ -65,9 +65,7 @@ char *manual="    移动:\t\t\t    速度:\n"
 			 "    信息:\t\t\t    提示:\n"
 			 "\tH    \t帮助    \t\t观赏烟花\t白天夜晚\n\tT\t骨骼    \t\t初次寻车\t图书馆后\n"
 			 "\tI\t版本\n\tEsc\t退出\n"; 
-char *information = "\n\t毕设题目:\t\t基于OpenGL的虚拟场景构建\n\t\t\t\t    之\n\t\t\t             城镇漫游\n\n"
-					"\t作者:\t\t              黄炳坚\n\n\n"
-					"\t\t\t\t\t深圳大学信息工程学院\n\t\t\t\t\t\t2017";
+char *information = "\n\t作者:\t\t笔尖\n";
 
 //int		LBDown; //鼠标左键
 float   m_Fps;      // 帧速 
